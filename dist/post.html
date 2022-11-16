@@ -14,6 +14,40 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <!--Ahmad's Scripts'-->
+        <script type="text/javascript">
+            var request = new XMLHttpRequest();
+            loadPost();
+            function loadPost() {
+                var params = window.location.href.split('?')[1];
+                request.open("GET", "getpost.php?".concat(params));
+                request.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var xmldoc = this.responseXML;
+                        //window.confirm(xmldoc);
+                        writeHeader(xmldoc);
+                        writeContent(xmldoc);
+                    }
+                }
+                request.send();
+            }
+
+            function writeHeader(xmldoc) {
+                var title = document.getElementsByTagName("h1")[0];
+                var title_text = xmldoc.getElementById("title").textContent;
+                title.innerHTML = title_text;
+                var post_info = document.getElementsByClassName("post-meta")[0];
+                var author = xmldoc.getElementById("author").textContent;
+                var post_date = xmldoc.getElementById("date").textContent;
+                post_info.innerHTML = "Posted by: " + author + " On Date: " + post_date;
+            }
+
+            function writeContent(xmldoc) {
+                var pcontent = document.getElementById("post-content");
+                var text_content = xmldoc.getElementById("content").textContent;
+                pcontent.innerHTML = text_content;
+            }
+        </script>
     </head>
     <body>
         <!-- Navigation-->
@@ -40,7 +74,6 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="post-heading">
                             <h1>First news</h1>
-                            <h2 class="subheading">Description of the First news</h2>
                             <span class="meta">
                                 <p class="post-meta">
                                     Posted by Name , on date
@@ -56,11 +89,7 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p> v sjoa vji fvijajoe jef jof nonwrnorngb</p>
-                        
-                       <p> Posted by
-                            <a href="http://spaceipsum.com/">Name </a>
-                           </p>
+                        <p id="post-content"> v sjoa vji fvijajoe jef jof nonwrnorngb</p>
                     </div>
                 </div>
             </div>
