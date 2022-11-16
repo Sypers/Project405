@@ -47,6 +47,10 @@
                 var text_content = xmldoc.getElementById("content").textContent;
                 pcontent.innerHTML = text_content;
             }
+
+            function getPostID() {
+                document.getElementById("postid").value = window.location.href.split('=')[1]
+            }
         </script>
     </head>
     <body>
@@ -90,6 +94,15 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <p id="post-content"> v sjoa vji fvijajoe jef jof nonwrnorngb</p>
+                        <hr/>
+                        <form action="submit_comment.php" method="post">
+                            <label>Name</label><br>
+                            <input type="text" id="name" name="name" placeholder="Alex Jones"/><br>
+                            <label>Comment Content</label><br>
+                            <textarea type="text" id="comment" name="comment" rows="6" cols="60"></textarea><br><br>
+                            <input id="postid" name="postid" value="null" type="hidden"/>
+                            <input type="submit" value="Submit Comment"/ onclick="getPostID()">
+                        </form>
                     </div>
                 </div>
             </div>

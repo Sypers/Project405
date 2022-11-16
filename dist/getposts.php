@@ -5,7 +5,7 @@ if (!$con) {
 }
 
 mysqli_select_db($con, "amn");
-$sql = "SELECT * FROM posts";
+$sql = "SELECT * FROM posts ORDER BY clicks DESC";
 $result = mysqli_query($con,$sql);
 
 while($row = mysqli_fetch_array($result)) {
