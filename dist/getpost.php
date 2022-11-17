@@ -44,5 +44,22 @@ $root->appendChild($content);
 $date->nodeValue = $d;
 $date->setAttribute("id","date");
 $root->appendChild($date);
+
+$comments_root = $dom->createElement("AllComments");
+$root->appendChild($comments_root);
+
+$sql = $con->prepare("SELECT * FROM comments where postid = ?");
+$sql->bind_param("i",$_GET['id']);
+$sql->execute();
+$result = $sql->get_result();
+while ($row = mysqli_fetch_assoc($result)){
+    $comment = $dom->createElement("Comment");
+    $comments_root->appendChild($comment);
+    $name = $dom->createElement("Name",$row['name']);
+    $comment->appendChild($name);
+    $content = $dom->createElement("CommentContent",$row['content']);
+    $comment->appendChild($content);
+}
+
 echo $dom->saveXML();
 ?>
